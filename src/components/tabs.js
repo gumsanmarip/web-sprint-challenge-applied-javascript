@@ -19,9 +19,9 @@ const Tabs = (topics) => {
   const divTopics = document.createElement('div');
   divTopics.classList.add('topics');
 
-  topics.array.forEach(item => {
+  topics.forEach(item => {
     const divTab = document.createElement('div');
-    divTab.classList('tab');
+    divTab.classList.add('tab');
     divTab.textContent = item;
     divTopics.appendChild(divTab);
   });
@@ -39,7 +39,11 @@ const tabsAppender = (selector) => {
 
   axios.get(`http://localhost:5000/api/topics`)
   .then(resp => {
-    const 
+    const createTabs = document.querySelector(selector);
+    const topicList = resp.data.topics;
+    const newTab = Tabs(topicList);
+    createTabs.appendChild(newTab);
+
     console.log(resp)
   }).catch(err =>{
     console.error(err);
