@@ -62,13 +62,16 @@ const cardAppender = (selector) => {
   axios.get(`http://localhost:5000/api/articles`)
   .then(resp => {
     const createCards = document.querySelector(selector);
-    const articles = resp.data["articles"];
-
-    
-
-
-
-
+    const articles = resp.data.articles
+    for (let topic in articles){
+      articles[topic].forEach(item => {
+        let newCard = Card(item);
+        createCards.appendChild(newCard);
+      })
+    }
+    // const bootstrap = resp.data.articles.bootstrap
+    // bootstrap.array.forEach(element => {
+    //   createCards.appendChild(Card(element));
   }).catch(err =>{
     console.error(err);
   }).finally(() => console.log("woo"))
